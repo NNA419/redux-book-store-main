@@ -67,6 +67,8 @@ const HomePage = () => {
   const onSubmit = (data) => {
     setQuery(data.searchQuery);
   };
+
+
   return (
     <Container>
       <Stack sx={{ display: "flex", alignItems: "center", m: "2rem" }}>

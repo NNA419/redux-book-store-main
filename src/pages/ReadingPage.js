@@ -14,7 +14,7 @@ const ReadingPage = () => {
   const navigate = useNavigate()
 
   const dispatch = useDispatch();
-  const { books, isLoading } = useSelector((state) => state.bookStore);
+  const { favoriteBooks, isLoading } = useSelector((state) => state.bookStore);
 
   const handleClickBook = (bookId) => {
     navigate(`/books/${bookId}`);
@@ -82,7 +82,7 @@ const ReadingPage = () => {
           justifyContent="space-around"
           flexWrap={"wrap"}
         >
-          {books.map((book) => (
+          {favoriteBooks.map((book) => (
             <Card
               key={book.id}
               sx={{

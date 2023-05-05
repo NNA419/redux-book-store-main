@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import api from "../apiService";
 import { Container, Button, Box, Grid, Stack, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavoriteBook, getDetailBook } from "../features/BookSlice";
+import { addFavoriteBook, getDetailBook, getFavorite } from "../features/BookSlice";
 
 
 const BACKEND_API = process.env.REACT_APP_BACKEND_API;
@@ -15,20 +15,30 @@ const BookDetailPage = () => {
   // const [book, setBook] = useState(null);
   // const [addingBook, setAddingBook] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const params = useParams();
   const bookId = params.id;
 
   
 
-  const { book, isLoading , addingBook } = useSelector((state) => state.bookStore);
+  const { book, isLoading , favoriteBooks , error} = useSelector((state) => state.bookStore);
 
-  const addToReadingList = (book) => {
+  const addToReadingList = (addingBook) => {
     // setAddingBook(book)
-    dispatch(addFavoriteBook({addingBook : book }));
+    
+    const found = favoriteBooks.filter((book) => book.id === addingBook.id)
+    dispatch(addFavoriteBook({ addingBook: book }));
+    if (found !== null && found.length > 0) {
+      
+    } else {
+      
+    }
   };
 
+  useEffect(() => {
+    dispatch(getFavorite());
+  }, [favoriteBooks.length, dispatch]);
   // useEffect(() => {
   //   const postData = async () => {
   //     if (!addingBook) return;
@@ -63,10 +73,16 @@ const BookDetailPage = () => {
   //   };
   //   fetchData();
   // }, [bookId]);
+  console.log(error);
 
+  if (error !== null) {
+    console.log(error)
+    toast.error(error.message);
+  }
 
   return (
     <Container>
+      {/* {error ? toast.error(error) : <Container/>} */}
       {isLoading ? (
         <Box sx={{ textAlign: "center", color: "primary.main" }}>
           <ClipLoader color="#inherit" size={150} loading={true} />

@@ -8,6 +8,7 @@ const initialState = {
     error: null,
     isLoading: false,
     book: {},
+    favoriteBooks: [],
 }
 
 export const bookSlice = createSlice({ 
@@ -21,6 +22,7 @@ export const bookSlice = createSlice({
         endLoading (state) {
             state.isLoading = false;
             console.log("end loading");
+            state.error = null;
         },
         hasError (state, action) {
             console.log(action)
@@ -31,22 +33,27 @@ export const bookSlice = createSlice({
             console.log(action)
             state.books = action.payload;
             state.isLoading = false;
+            state.error = null;
         },
         getDetailBookSuccess (state, action) {
             state.book = action.payload;
             state.isLoading = false;
+            state.error = null;
         },
         setAddingBook(state, action) {
             state.isLoading = false;
             toast.success("The book has been added to the reading list!");
+            state.error = null;
         },
         removeFavoriteBookSuccess(state, action) {
             toast.success("The book has been removed");
             state.isLoading = false;
+            state.error = null;
         },
         getFavoriteBookSuccess(state, action) {
             state.isLoading = false;  
-            state.books = action.payload;
+            state.favoriteBooks = action.payload;
+            state.error = null;
         }
     }
 })
@@ -89,7 +96,8 @@ export const addFavoriteBook = ({ addingBook }) =>
             dispatch(bookSlice.actions.setAddingBook())
         } catch (error) {
             dispatch(bookSlice.actions.hasError(error));
-            toast.error(error);
+            // toast.error(error);
+            console.log(error)
         }
         dispatch(bookSlice.actions.endLoading());
     };
@@ -104,7 +112,7 @@ export const removeFavoriteBook =
         dispatch(getFavorite());
     } catch (error) {
         dispatch(bookSlice.actions.hasError());
-        toast.error(error);
+        // toast.error(error)// khong de UI o day !!;
     }
     dispatch(bookSlice.actions.endLoading());
         };
@@ -113,10 +121,11 @@ export const getFavorite = () =>
   async (dispatch) => {
     dispatch(bookSlice.actions.startLoading());
     try {
-      const res = await api.get(`/favorites`);
+        const res = await api.get(`/favorites`);
+        console.log(res)
       dispatch(bookSlice.actions.getFavoriteBookSuccess(res?.data)); //{}
     } catch (error) {
       dispatch(bookSlice.actions.hasError(error));
     }
     dispatch(bookSlice.actions.endLoading());
-  };        
+    };        
