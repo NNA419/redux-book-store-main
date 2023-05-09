@@ -27,7 +27,7 @@ export const bookSlice = createSlice({
         hasError (state, action) {
             console.log(action)
             state.isLoading = false;
-            state.error = action.payload;
+            state.error = action.payload.message;
         },
         getAllBooksSuccess (state, action) {
             console.log(action)
@@ -73,7 +73,7 @@ export const getAllBooks = ({pageNum , limit , query}) => async (dispatch) => {
   } catch (error) {
     dispatch(bookSlice.actions.hasError(error));
     }
-    dispatch(bookSlice.actions.endLoading());
+    // dispatch(bookSlice.actions.endLoading());
 };
 
 export const getDetailBook = ({bookId}) =>
@@ -85,7 +85,7 @@ export const getDetailBook = ({bookId}) =>
     } catch (error) {
       dispatch(bookSlice.actions.hasError(error));
     }
-    dispatch(bookSlice.actions.endLoading());
+    // dispatch(bookSlice.actions.endLoading());
     };
   
 export const addFavoriteBook = ({ addingBook }) =>
@@ -99,7 +99,7 @@ export const addFavoriteBook = ({ addingBook }) =>
             // toast.error(error);
             console.log(error)
         }
-        dispatch(bookSlice.actions.endLoading());
+        // dispatch(bookSlice.actions.endLoading());
     };
 
 export const removeFavoriteBook =
@@ -114,7 +114,7 @@ export const removeFavoriteBook =
         dispatch(bookSlice.actions.hasError());
         // toast.error(error)// khong de UI o day !!;
     }
-    dispatch(bookSlice.actions.endLoading());
+    // dispatch(bookSlice.actions.endLoading());
         };
   
 export const getFavorite = () =>
@@ -127,5 +127,5 @@ export const getFavorite = () =>
     } catch (error) {
       dispatch(bookSlice.actions.hasError(error));
     }
-    dispatch(bookSlice.actions.endLoading());
+    // dispatch(bookSlice.actions.endLoading());
     };        

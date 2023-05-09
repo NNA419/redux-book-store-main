@@ -24,7 +24,8 @@ const PublicNavbar = () => {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <img src={logo} alt="CoderSchool" width="200px" />
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>  0.
+              
             <IconButton
               size="large"
               aria-label="account of current user"

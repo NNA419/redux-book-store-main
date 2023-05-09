@@ -73,7 +73,7 @@ const HomePage = () => {
     <Container>
       <Stack sx={{ display: "flex", alignItems: "center", m: "2rem" }}>
         <Typography variant="h3" sx={{ textAlign: "center" }}>Book Store</Typography>
-        {error && <Alert severity="danger">{error}</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <Stack
             spacing={2}
